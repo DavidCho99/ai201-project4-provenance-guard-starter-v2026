@@ -18,13 +18,14 @@ ROOT = Path(__file__).parent
 # you want all through units 7 and 8. A host somewhere else has to accept
 # traffic from outside the box, and that means `0.0.0.0`. Setting the env var
 # is how you get it; the default keeps your local `curl` commands unchanged.
-HOST = os.getenv("HOST", "127.0.0.1")
+HOST = "127.0.0.1"
 PORT = int(os.getenv("PORT", "5000"))
 
 # Flask's debug mode gives anyone who can reach the service an interactive
 # Python prompt inside your process. Fine on loopback, a gift to strangers
 # anywhere else — so it turns itself off the moment HOST isn't loopback.
-DEBUG = os.getenv("AI201_DEBUG", "1") == "1" and HOST in ("127.0.0.1", "localhost")
+DEBUG = os.getenv("AI201_DEBUG", "1") == "1" and HOST in (
+    "127.0.0.1", "localhost")
 
 
 # ─── The local model ─────────────────────────────────────────────────────────

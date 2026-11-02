@@ -57,7 +57,7 @@ sent it data, it sent something back.
 > fails with `Cannot bind parameter 'Headers'` before it ever reaches your
 > service. The `\` line breaks don't work there either. This does:
 >
-> ```powershell
+> ```powershe
 > curl.exe -X POST http://127.0.0.1:5000/ping -H "Content-Type: application/json" -d '{\"message\": \"hello\"}'
 > ```
 >
@@ -83,28 +83,28 @@ position.**
 
 ## The routes
 
-| Route | State | What it does |
-|---|---|---|
-| `POST /ping` | **works** | The example. Don't edit it |
-| `GET /health` | **works** | Is the service up, is the model loaded |
-| `GET /log` | **works** | The audit log, as JSON |
-| `POST /submit` | **you build it** | Milestones 3, 4, 5 |
-| `POST /appeal` | **you build it** | Milestone 5 |
+| Route          | State            | What it does                           |
+| -------------- | ---------------- | -------------------------------------- |
+| `POST /ping`   | **works**        | The example. Don't edit it             |
+| `GET /health`  | **works**        | Is the service up, is the model loaded |
+| `GET /log`     | **works**        | The audit log, as JSON                 |
+| `POST /submit` | **you build it** | Milestones 3, 4, 5                     |
+| `POST /appeal` | **you build it** | Milestone 5                            |
 
 ---
 
 ## Every command
 
-| Command | What it does |
-|---|---|
-| `python test.py` | Checks your environment |
-| `python app.py` | Runs the service |
-| `python detector.py` | Downloads the model and scores a sample — **run before class** |
-| `python detector.py "some text"` | Score one piece of text from the terminal |
-| `python stylometry.py "some text"` | Your style measures, on one piece of text |
-| `python run_attacks.py --set <folder>` | The attack set — **unit 8** |
-| `python run_attacks.py --flood 15` | Push past your rate limit and print the status codes — **unit 8** |
-| `python run_eval.py --label before` | Your five criteria, three trials — **unit 8** |
+| Command                                | What it does                                                      |
+| -------------------------------------- | ----------------------------------------------------------------- |
+| `python test.py`                       | Checks your environment                                           |
+| `python app.py`                        | Runs the service                                                  |
+| `python detector.py`                   | Downloads the model and scores a sample — **run before class**    |
+| `python detector.py "some text"`       | Score one piece of text from the terminal                         |
+| `python stylometry.py "some text"`     | Your style measures, on one piece of text                         |
+| `python run_attacks.py --set <folder>` | The attack set — **unit 8**                                       |
+| `python run_attacks.py --flood 15`     | Push past your rate limit and print the status codes — **unit 8** |
+| `python run_eval.py --label before`    | Your five criteria, three trials — **unit 8**                     |
 
 ---
 
@@ -112,25 +112,25 @@ position.**
 
 ### Unit 7 — the build
 
-| Milestone | What you're doing | Where |
-|---|---|---|
-| 1 | Trace a submission on paper | Nothing to run |
-| 2 | Write your criteria | `criteria.md` — all five are yours |
-| 3 | The route, one signal, the log | `app.py::submit`, `detector.py`, `audit.py` |
-| 4 | Second signal, combine, score | `stylometry.py`, `scoring.py::combine_signals` |
-| 5 | Labels and the appeal path | `scoring.py::score_to_label`, `app.py::appeal` |
-| 6 | Write it up | `README.md` |
+| Milestone | What you're doing              | Where                                          |
+| --------- | ------------------------------ | ---------------------------------------------- |
+| 1         | Trace a submission on paper    | Nothing to run                                 |
+| 2         | Write your criteria            | `criteria.md` — all five are yours             |
+| 3         | The route, one signal, the log | `app.py::submit`, `detector.py`, `audit.py`    |
+| 4         | Second signal, combine, score  | `stylometry.py`, `scoring.py::combine_signals` |
+| 5         | Labels and the appeal path     | `scoring.py::score_to_label`, `app.py::appeal` |
+| 6         | Write it up                    | `README.md`                                    |
 
 ### Unit 8 — the test
 
-| Milestone | What you're doing | Where |
-|---|---|---|
-| 1 | Rate limiting and the full log | `config.py`, the decorator in `app.py` |
-| 2 | Run the attack set | `run_attacks.py` |
-| 3 | Run your own criteria | `scenarios.py`, `run_eval.py` |
-| 4 | Verdicts and diagnoses | `README.md` |
-| 5 | Fix one thing, re-run | `run_attacks.py --label after` |
-| 6 | What's still broken | `README.md` |
+| Milestone | What you're doing              | Where                                  |
+| --------- | ------------------------------ | -------------------------------------- |
+| 1         | Rate limiting and the full log | `config.py`, the decorator in `app.py` |
+| 2         | Run the attack set             | `run_attacks.py`                       |
+| 3         | Run your own criteria          | `scenarios.py`, `run_eval.py`          |
+| 4         | Verdicts and diagnoses         | `README.md`                            |
+| 5         | Fix one thing, re-run          | `run_attacks.py --label after`         |
+| 6         | What's still broken            | `README.md`                            |
 
 ---
 
@@ -201,11 +201,11 @@ gunicorn app:app --bind 0.0.0.0:$PORT
 
 Two settings do the work, and both read the environment:
 
-| Variable | Default | What it does |
-|---|---|---|
-| `HOST` | `127.0.0.1` | Loopback — your machine only. A host needs `0.0.0.0`, or nothing outside the box can reach the service and it looks like the app is down |
-| `PORT` | `5000` | Most hosts hand you a port in `PORT` and expect you to bind exactly that one |
-| `AI201_DEBUG` | `1` | Debug mode. Off automatically whenever `HOST` isn't loopback — an interactive debugger on a public address is a stranger's Python prompt inside your process |
+| Variable      | Default     | What it does                                                                                                                                                 |
+| ------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `HOST`        | `127.0.0.1` | Loopback — your machine only. A host needs `0.0.0.0`, or nothing outside the box can reach the service and it looks like the app is down                     |
+| `PORT`        | `5000`      | Most hosts hand you a port in `PORT` and expect you to bind exactly that one                                                                                 |
+| `AI201_DEBUG` | `1`         | Debug mode. Off automatically whenever `HOST` isn't loopback — an interactive debugger on a public address is a stranger's Python prompt inside your process |
 
 Nothing about your local workflow changes. With no variables set you get
 `http://127.0.0.1:5000` and every `curl` above still works.
@@ -214,12 +214,12 @@ Nothing about your local workflow changes. With no variables set you get
 
 Say it plainly, because the arithmetic is the point:
 
-| What has to be in memory | Roughly |
-|---|---|
-| `torch` | ~200–800 MB depending on the build |
-| the `gpt2` weights | ~550 MB on disk, loaded into RAM to score |
-| Flask, gunicorn, your code | the rest |
-| **A free tier gives you** | **512 MB** |
+| What has to be in memory   | Roughly                                   |
+| -------------------------- | ----------------------------------------- |
+| `torch`                    | ~200–800 MB depending on the build        |
+| the `gpt2` weights         | ~550 MB on disk, loaded into RAM to score |
+| Flask, gunicorn, your code | the rest                                  |
+| **A free tier gives you**  | **512 MB**                                |
 
 That's over budget before a single request arrives — and a free host has no
 persistent disk, so the 550 MB download starts again after every idle
@@ -236,20 +236,20 @@ your write-up; that's the deliverable.
 
 ## Where everything lives
 
-| File | What it does |
-|---|---|
-| `config.py` | Every setting: thresholds, weights, rate limits, the model |
-| `app.py` | The service. `/ping` and `/log` work; `/submit` and `/appeal` are yours |
-| `detector.py` | Signal one — the local model. Given to you |
-| `stylometry.py` | Signal two. **Stubs — you build these** |
-| `scoring.py` | Combining and labelling. **Stubs — you build these** |
-| `audit.py` | The audit log writer. Given to you |
-| `run_attacks.py` | Runs the attack set — **unit 8** |
-| `run_eval.py` | Runs your criteria three times — **unit 8** |
-| `scenarios.py` | What your test runs. **You fill this in** |
-| `criteria.md` | Your five criteria. **You write all five** |
-| `logs/audit.jsonl` | Your audit log. **Commit it** |
-| `results/` | Attack runs and run logs. **Commit them** |
+| File               | What it does                                                            |
+| ------------------ | ----------------------------------------------------------------------- |
+| `config.py`        | Every setting: thresholds, weights, rate limits, the model              |
+| `app.py`           | The service. `/ping` and `/log` work; `/submit` and `/appeal` are yours |
+| `detector.py`      | Signal one — the local model. Given to you                              |
+| `stylometry.py`    | Signal two. **Stubs — you build these**                                 |
+| `scoring.py`       | Combining and labelling. **Stubs — you build these**                    |
+| `audit.py`         | The audit log writer. Given to you                                      |
+| `run_attacks.py`   | Runs the attack set — **unit 8**                                        |
+| `run_eval.py`      | Runs your criteria three times — **unit 8**                             |
+| `scenarios.py`     | What your test runs. **You fill this in**                               |
+| `criteria.md`      | Your five criteria. **You write all five**                              |
+| `logs/audit.jsonl` | Your audit log. **Commit it**                                           |
+| `results/`         | Attack runs and run logs. **Commit them**                               |
 
 ---
 
@@ -277,20 +277,20 @@ sentences, a pasted quotation. That is very cheap to do on purpose.
 
 ## When something goes wrong
 
-| What you see | What it means |
-|---|---|
-| `501 not_implemented` | Correct at the start — that's the TODO in `app.py` |
-| `404` from curl | Is the server running? Is the path exactly what you typed? |
-| `Cannot bind parameter 'Headers'` | You're in PowerShell, where `curl` is a different tool. Use `curl.exe`, on one line |
-| Request body arrives empty | curl needs `-H "Content-Type: application/json"` |
-| `Address already in use` | A server left running from an earlier attempt. Kill it, don't debug it |
-| The first submission takes 10+ seconds | Signal one is loading the model into memory. Later ones take a second or two |
-| *Every* submission takes 10+ seconds | Something is reloading the model each call. `GET /health` shows `detector_loaded` — if it goes back to `false`, look for a reload in your handler |
-| `DetectorUnavailable` | Run `python detector.py` once to download the model |
-| `/appeal` seems to do nothing | Does the `content_id` you sent actually exist in the log? A typo there fails silently |
-| Every request gets through, no `429` ever | The decorator is uncommented but limiting is still off. Set `RATE_LIMITING_ENABLED` in `config.py` |
-| Flask-Limiter warns about storage | Shouldn't happen — `storage_uri` is preconfigured. If you changed it, put it back |
-| All three of your labels never appear | Your ranges have a gap. `scoring.label_ranges()` prints them |
+| What you see                              | What it means                                                                                                                                     |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `501 not_implemented`                     | Correct at the start — that's the TODO in `app.py`                                                                                                |
+| `404` from curl                           | Is the server running? Is the path exactly what you typed?                                                                                        |
+| `Cannot bind parameter 'Headers'`         | You're in PowerShell, where `curl` is a different tool. Use `curl.exe`, on one line                                                               |
+| Request body arrives empty                | curl needs `-H "Content-Type: application/json"`                                                                                                  |
+| `Address already in use`                  | A server left running from an earlier attempt. Kill it, don't debug it                                                                            |
+| The first submission takes 10+ seconds    | Signal one is loading the model into memory. Later ones take a second or two                                                                      |
+| *Every* submission takes 10+ seconds      | Something is reloading the model each call. `GET /health` shows `detector_loaded` — if it goes back to `false`, look for a reload in your handler |
+| `DetectorUnavailable`                     | Run `python detector.py` once to download the model                                                                                               |
+| `/appeal` seems to do nothing             | Does the `content_id` you sent actually exist in the log? A typo there fails silently                                                             |
+| Every request gets through, no `429` ever | The decorator is uncommented but limiting is still off. Set `RATE_LIMITING_ENABLED` in `config.py`                                                |
+| Flask-Limiter warns about storage         | Shouldn't happen — `storage_uri` is preconfigured. If you changed it, put it back                                                                 |
+| All three of your labels never appear     | Your ranges have a gap. `scoring.label_ranges()` prints them                                                                                      |
 
 If the route won't respond, go back to `/ping`. If that answers, the problem is
 in your handler.
