@@ -34,13 +34,47 @@
 
 <!-- ═══════════════════════ UNIT 7 — THE BUILD ═══════════════════════ -->
 
-## What This Does
-
 <!-- The path a submission takes, from arriving to the label a reader sees.
      Six or seven steps — this is the trace you wrote in Milestone 1. -->
 
+## What This Does
 
+1. **Text Submission:** The writer submits their text and creator ID through the `/submit` endpoint.
+2. **Input Validation:** The system validates the input to ensure the required fields are present and valid.
+3. **Model-Based Detection:** `detector.py` analyzes the text using a local machine learning model to identify patterns associated with AI-generated writing.
+4. **Stylometric Analysis:** `stylometry.py` analyzes statistical writing features, such as sentence length variation, vocabulary diversity, and punctuation frequency.
+5. **Score Combination:** `scoring.py::combine_signals` combines the two signals to calculate a final score.
+6. **Label Assignment:** The system assigns one of three labels based on the score: high-confidence human, unsure, or high-confidence AI.
+7. **Logging and Response:** The system records the analysis in the audit log and returns a content ID, prediction, confidence score, and label to the user.
 
+### False Positive Scenario
+
+A human writer submits an original essay, but the system incorrectly assigns an AI-likelihood score of 0.92. The writer receives a high-confidence AI label even though they wrote the essay themselves.
+
+The writer can submit an appeal through the `/appeal` endpoint using their content ID and an explanation. The system records the appeal and changes the status to `under_review`.
+
+This example demonstrates why conservative classification thresholds are important to reduce false accusations.
+### API Contracts
+
+#### POST /submit
+
+Request:
+``` json
+{
+  "text": "I wrote this essay myself.",
+  "creator_id": "user123"
+}
+```
+
+Response:
+```json
+{
+  "content_id": "content00000001",
+  "guess": "human",
+  "confidence": 0.91,
+  "label": "This text is likely human-written."
+}
+```
 ---
 
 ## Signals and Scoring
@@ -94,11 +128,11 @@
 
      Write them for someone who has never heard the word "threshold". -->
 
-| Label | Score range | The exact text a reader sees |
-|---|---|---|
-| high-confidence human |  |  |
-| unsure |  |  |
-| high-confidence AI |  |  |
+| Label                 | Score range | The exact text a reader sees |
+| --------------------- | ----------- | ---------------------------- |
+| high-confidence human |             |                              |
+| unsure                |             |                              |
+| high-confidence AI    |             |                              |
 
 **Why I worded the "unsure" one this way:**
 <!-- It's the hardest of the three. It has to admit uncertainty without
@@ -224,12 +258,12 @@ whose work got caught by it:
 <!-- Your five criteria across three trials. `run_eval.py --label before`. -->
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
-|---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| --------- | ------ | ----- | ----- | ----- | ------- |
+| 1.        |        |       |       |       |         |
+| 2.        |        |       |       |       |         |
+| 3.        |        |       |       |       |         |
+| 4.        |        |       |       |       |         |
+| 5.        |        |       |       |       |         |
 
 **Real output from one trial**, pasted as text, naming the file and function
 that produced it:
