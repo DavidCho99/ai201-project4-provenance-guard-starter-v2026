@@ -23,13 +23,13 @@ than a missed detection"* is a real answer.
 
 **Cover at least three of these five areas.** They're prompts, not a form.
 
-| Area | A question it could answer |
-|---|---|
-| False positives | How often may a human's writing get called AI? |
-| Score spread | How far apart should clearly-AI and clearly-human text score? |
-| Label coverage | Is every one of your three labels actually reachable? |
-| The appeal path | Does an appeal always change status and always get recorded? |
-| Bad input | What happens when `text` is missing, empty, or enormous? |
+| Area            | A question it could answer                                    |
+| --------------- | ------------------------------------------------------------- |
+| False positives | How often may a human's writing get called AI?                |
+| Score spread    | How far apart should clearly-AI and clearly-human text score? |
+| Label coverage  | Is every one of your three labels actually reachable?         |
+| The appeal path | Does an appeal always change status and always get recorded?  |
+| Bad input       | What happens when `text` is missing, empty, or enormous?      |
 
 Two things worth knowing before you pick numbers:
 
@@ -41,65 +41,37 @@ Two things worth knowing before you pick numbers:
   differently twice. A target of "at most 1 in 10" against trials of 2, 1, 2 is
   a **miss**.
 
----
-## 1.
+# Acceptance Criteria — Provenance Guard
 
-<!-- Your criterion. It must name a number. -->
+### 1. False Positives
 
+**Target:** Of 100 human-written samples, no more than 1 may be labeled high-confidence AI.
 
+**Reason:** False positives can seriously damage a writer's credibility and reputation. I believe protecting genuine human writers from false accusations is more important than detecting every AI-generated text. Therefore, my goal is to avoid any high-confidence AI classifications for human-written samples in this test set.
 
-**Why this target:**
+### 2. Score Spread
 
+**Target:** The average AI-likelihood score of 20 AI-generated samples must exceed the average score of 20 human-written samples by at least 0.20.
 
+**Reason:** The system should demonstrate a measurable difference between human-written and AI-generated text. I chose a minimum difference of 0.20 because I want the combined signals to provide meaningful separation rather than producing nearly identical scores for both groups.
 
----
+### 3. Label Coverage
 
-## 2.
+**Target:** All three labels and their exact boundary values must be tested successfully.
 
-<!-- Your criterion. -->
+**Reason:** The system should not force every piece of writing into either human or AI classification. The unsure label is especially important because both detection signals have limitations. Testing all three labels and their boundaries ensures that uncertain cases can be handled appropriately.
 
+### 4. Appeal Path
 
+**Target:** At least 100% of 20 valid appeals must update the status to `under_review` and create an audit record.
 
-**Why this target:**
+**Reason:** Writers should always have a reliable way to challenge incorrect classifications. Since the detection system cannot guarantee perfect accuracy, every valid appeal must be recorded and acknowledged. I chose 100% because losing an appeal could prevent a falsely accused writer from receiving a review.
 
+### 5. Bad Input
 
+**Target:** Missing or empty text, and text longer than 20,000 characters, must return HTTP 400 in all tested cases.
 
----
-
-## 3.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
-
----
-
-## 4.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
-
----
-
-## 5.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
-
+**Reason:** Input validation is necessary to prevent invalid requests from reaching the detection pipeline. I chose a 20,000-character limit to establish a clear maximum input size and reduce unnecessary processing of excessively long submissions. Invalid input should receive a predictable error response rather than causing the service to fail.
 ---
 
 <!-- ─────────────────────────────────────────────────────────────────────────
