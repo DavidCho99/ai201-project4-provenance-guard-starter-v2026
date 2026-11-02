@@ -191,17 +191,27 @@ $ curl "http://127.0.0.1:5000/log?limit=3"
 
 ## How I Used AI
 
-**Moment 1**
+### Moment 1 — Understanding the Detection Signals
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+**What I asked for:**
+I asked AI to explain the differences between human-written and AI-generated text and how semantic detection differs from stylometric analysis.
 
-**Moment 2**
+**What came back:**
+AI explained that model-based detection identifies learned linguistic patterns, while stylometric analysis measures sentence length variation, vocabulary diversity, and punctuation density. It also explained the limitations of both approaches.
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+**What I changed:**
+I used these explanations to develop my understanding of the two signals and their blind spots. I also prioritized reducing false positives because incorrectly accusing human writers could harm their credibility.
+
+### Moment 2 — Implementing and Testing the Backend
+
+**What I asked for:**
+I asked AI for guidance on implementing the `/submit` endpoint, connecting `detector.py`, recording decisions with `audit.py`, and developing the stylometric analysis functions.
+
+**What came back:**
+AI provided Python implementation examples, explained the expected JSON response structure, and suggested terminal commands for testing the endpoints.
+
+**What I changed:**
+I incorporated the suggested implementation into my project and tested the `/submit` endpoint using curl. I verified that the detector returned a model score of 0.2779 and that the submission appeared in the audit log with the correct content ID and status. I also implemented and tested the stylometric measurements.
 
 <!-- ═══════════════════════ UNIT 8 — THE TEST ═══════════════════════ -->
 
